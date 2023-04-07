@@ -2,15 +2,53 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 const root = document.getElementById('root')
 
+const NoFeedbackGiven = () => <div><h4>Sin datos</h4></div>
+
+const Estadísticas = (props) => {
+  let mostrar = props.show
+  let setMostrar = props.setShow
+  let good = props.good;
+  let neutral = props.neutral;
+  let bad = props.bad;
+  let total = (good + neutral + bad);
+  let promedio = (((1*good) + (-1*bad))/total)
+  let positivos = ((good*100)/total)
+
+  const mostrarEst = () => {
+    setMostrar(true)
+  } 
+  return(
+    <div>
+      <p>Total: {total}</p>
+      <p>Promedio(1 b, 0 n, -1 m): {mostrar ? promedio.toFixed(2) : 0}</p>
+      <p>% de positivos: {mostrar ? positivos.toFixed(2) : 0}</p>
+      <button onClick={mostrarEst}>Crear estadísticas</button>
+    </div>
+  )
+
+}
+
+const ShowEstadísticas = (props) => {
+  let mostrar = props.show
+  let setMostrar = props.setShow
+  let good = props.good;
+  let neutral = props.neutral;
+  let bad = props.bad;
+  let total = (good + neutral + bad);
+
+  return(
+    <div>
+      {total === 0 ? (<NoFeedbackGiven/>) : (<Estadísticas good={good} neutral={neutral} bad={bad} show={mostrar} setShow={setMostrar} />)}
+    </div>
+  )
+}
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [mostrar, setMostrar] = useState(false)
-  let total = (good + neutral + bad);
-  let promedio = (((1*good) + (-1*bad))/total)
-  let positivos = ((good*100)/total)
+  const [mostrar, setMostrar] = useState(false);
 
   const clickG = () => {
     setGood(good + 1);
@@ -31,9 +69,6 @@ const App = () => {
     setMostrar(false)
   }
 
-  const mostrarEst = () => {
-    setMostrar(true)
-  }
 
   return (
     <div>
@@ -46,10 +81,7 @@ const App = () => {
       <p>Neutrales: {neutral}</p>
       <p>Malas: {bad}</p>
       <h3>Stadísticas</h3>
-      <p>Total: {total}</p>
-      <p>Promedio(1 b, 0 n, -1 m): {mostrar ? promedio.toFixed(2) : 0}</p>
-      <p>% de positivos: {mostrar ? positivos.toFixed(2) : 0}</p>
-      <button onClick={mostrarEst}>Crear estadísticas</button>
+      <ShowEstadísticas good={good} neutral={neutral} bad={bad} show={mostrar} setShow={setMostrar} />
       <p>Resetear: </p>
       <button onClick={clickR}>Reset</button>
     </div>
