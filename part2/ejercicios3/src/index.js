@@ -19,10 +19,20 @@ const Estadísticas = (props) => {
   } 
   return(
     <div>
-      <p>Total: {total}</p>
-      <p>Promedio(1 b, 0 n, -1 m): {mostrar ? promedio.toFixed(2) : 0}</p>
-      <p>% de positivos: {mostrar ? positivos.toFixed(2) : 0}</p>
-      <button onClick={mostrarEst}>Crear estadísticas</button>
+      <table>
+        <tr>
+          <td>Total: {total}</td>
+        </tr>
+        <tr>
+          <td>Promedio(1 b, 0 n, -1 m): {mostrar ? promedio.toFixed(2) : 0}</td>
+        </tr>
+        <tr>  
+          <td>% de positivos: {mostrar ? positivos.toFixed(2) : 0}</td>
+        </tr>
+        <tr>
+          <button onClick={mostrarEst}>Crear estadísticas</button>
+        </tr>
+      </table>
     </div>
   )
 
@@ -77,9 +87,17 @@ const App = () => {
       <button onClick={clickN}>Neutral</button>
       <button onClick={clickB}>Mala</button>
       <h2>Reseñas</h2>
-      <p>Buenas: {good}</p>
-      <p>Neutrales: {neutral}</p>
-      <p>Malas: {bad}</p>
+      <table>  
+        <tr>
+          <td>Buenas: {good}</td>
+        </tr>
+        <tr>
+          <td>Neutrales: {neutral}</td>
+        </tr>
+        <tr>
+          <td>Malas: {bad}</td>
+        </tr>
+      </table>
       <h3>Stadísticas</h3>
       <ShowEstadísticas good={good} neutral={neutral} bad={bad} show={mostrar} setShow={setMostrar} />
       <p>Resetear: </p>
