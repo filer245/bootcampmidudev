@@ -1,52 +1,50 @@
-import React from 'react';
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
-
+import { useState } from "react";
+import ReactDOM from "react-dom";
 const root = document.getElementById('root');
 
-const App = (props) => {
-    const [contadorValue, setContador] = useState(0);
+const WarningNoUsed = () => {
+    return <h1>Todavía no se ha usado el contador</h1>
+}
 
+const ListOfClicks = ({clicks}) => {
+    console.log({clicks});
+    return <p>{clicks.join(', ')}</p>
+}
 
-    /*
-    const contador = useState(0)
-    const contadorValue = contador[0];   <= Es lo mismo que lo de arriba
-    const updateContador = contador[1];
-    */
+const App = () => {
+    //const [left, setLeft] = useState(0);
+    //const [right, setRight] = useState(0);
+
+    const [clicks, setClicks] = useState([])
     
-
-    console.log('render');
-
-    const handleClick = () => {
-        
+    const handleClickLeft = () =>{
+        setClicks(prevClicks => ([...prevClicks,'L']))
     }
 
-    const handleClickReset = () => {
-        setContador(0)
+    const handleClickRight = () =>{
+        setClicks(prevClicks => ([...prevClicks,'R']))
     }
 
-    const isEven = contadorValue % 2 === 0;
-    const mensaje = isEven ? 'Es par' : 'Es impar'
+    const handleReset = () => {
+        setClicks([]);
+    }
 
-    return (
+    const left = clicks.filter(click => click === 'L');
+    const right = clicks.filter(click => click === 'R');
+
+    return(
         <div>
-            <p>El valor del contador es: </p>
-            <h1>{contadorValue}</h1>
-            <p>{mensaje}</p>
-            <button onClick={handleClick}>
-                Incrementar
-            </button>
-            <button onClick={handleClickReset}>
-                Resetear
-            </button>
-            
+            {left.length}
+            <button onClick={handleClickLeft}>Left</button>
+            <button onClick={handleClickRight}>Right</button>
+            {right.length}
+            <p>
+                <button onClick={handleReset}>Reset</button>
+            </p>
+            <p>Clicks totales: {clicks.length}</p>
+            {clicks.length === 0 ? (<WarningNoUsed/>) : (<ListOfClicks clicks={clicks}/>)}
         </div>
     )
 }
 
-
-ReactDOM.render(
-        <App/>, 
-        root
-    );
-
+ReactDOM.render(<App/>, root);
