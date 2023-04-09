@@ -1,6 +1,4 @@
-export const Note = (props) => {
-  const {content, date} = props;
-
+export const Note = ({categories = [], content, date}) => {
   return (
     <li>
       <p>{content}</p>
@@ -9,6 +7,9 @@ export const Note = (props) => {
               {date}
           </time>
       </small>
+      {categories.map(category => (
+        <small key={category}>{category}</small>
+      ))}
     </li>
   )
 }

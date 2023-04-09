@@ -7,6 +7,7 @@ const notes = [
     content: 'HTML is easy',
     date: '2019-05-30T17:30:31.098Z',
     important: true,
+    categories: ['sports', 'hobby'],
   },
   {
     id: 2,
