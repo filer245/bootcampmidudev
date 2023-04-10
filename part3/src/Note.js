@@ -1,15 +1,12 @@
-export const Note = ({categories = [], content, date}) => {
+export const Note = ({title, body}) => {
   return (
     <li>
-      <p>{content}</p>
+      <p>{title}</p>
       <small>
           <time>
-              {date}
+              {body}
           </time>
       </small>
-      {categories.map(category => (
-        <small key={category}>{category}</small>
-      ))}
     </li>
   )
 }
